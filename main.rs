@@ -197,17 +197,45 @@
 
 // }
 
-use std::fs;
+use std::{fs, ops::Index};
+
+// enum Option{
+//     None,
+//     Some(u32)
+// }
 
 
 // error handling in enums
 fn main(){
     let contents =  fs::read_to_string("a.txt");
 
+    let ans :Option<u32> = find_first_a(String::from("hdfbjsdjakjsd"));
+
+
     match contents {
         Ok(contents) => println!("{}", contents),
         Err(e)=> println!("error while reading file")
     }
+
+    match ans {
+        None => print!("value not found"),
+        Some(val) => println!("a found at index :{} ", val)
+    }
 }
 
+
+
+
 //Option Enum to handle concept of nullablity in safe and simple way null varrible 
+// this helps in genrating null varrible
+fn find_first_a(s:String)->Option<u32>{
+    let mut index = 0;
+    for c in s.chars(){
+        if c =='a'{
+            return Some(index);
+        }
+        index = index+1;
+    }
+
+    None
+}
